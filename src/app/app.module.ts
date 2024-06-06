@@ -10,6 +10,8 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
+import { ClienteComponent } from './components/cliente/cliente.component';
+import { FatturaComponent } from './components/fattura/fattura.component';
 
 
 
@@ -29,7 +31,7 @@ const routes: Route[] = [
 
 ];
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NavBarComponent,RegisterComponent, LoginComponent],
+  declarations: [AppComponent, HomeComponent, NavBarComponent,RegisterComponent, LoginComponent, ClienteComponent, FatturaComponent],
   imports: [BrowserModule, RouterModule.forRoot(routes), FormsModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
