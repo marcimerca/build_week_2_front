@@ -28,6 +28,10 @@ const routes: Route[] = [
     path: 'login',
     component: LoginComponent,
   },
+  {
+    path: 'clienti',
+    component: ClienteComponent,
+  },
 
 ];
 @NgModule({
