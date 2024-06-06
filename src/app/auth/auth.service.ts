@@ -34,11 +34,11 @@ export class AuthService {
     return this.http.post<AuthData>(`${this.apiURL}auth/login`, data ).pipe(
       tap(async(data) => {
         console.log('Auth data: ', data);
-      }),/* ,
+      }),
       tap((data) => {
         this.authSub.next(data);
         localStorage.setItem('user', JSON.stringify(data));
-      }), */
+      }), 
       catchError(this.errors)
     );
   }

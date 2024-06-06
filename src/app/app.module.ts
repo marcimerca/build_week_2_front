@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Route, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { TokenInterceptor } from './auth/token.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -31,13 +34,25 @@ const routes: Route[] = [
   {
     path: 'clienti',
     component: ClienteComponent,
+    
+  },
+  {
+    path: 'fatture',
+    component: FatturaComponent,
+    
   },
 
 ];
 @NgModule({
   declarations: [AppComponent, HomeComponent, NavBarComponent,RegisterComponent, LoginComponent, ClienteComponent, FatturaComponent],
   imports: [BrowserModule, RouterModule.forRoot(routes), FormsModule, HttpClientModule],
-  providers: [],
+    providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

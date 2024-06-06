@@ -1,1 +1,32 @@
-<p>fattura works!</p>
+<div class="container mt-5">
+    <h2 class="my-3 text-center">Fatture</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col" class="bg-primary text-white">Data Importo</th>
+                <th scope="col" class="bg-primary text-white">Importo</th>
+                <th scope="col" class="bg-primary text-white">Numero</th>
+                <th scope="col" class="bg-primary text-white">Stato Fattura</th>
+                <th scope="col" class="bg-primary text-white">Cliente</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let fattura of fatture">
+                <td>{{ fattura.dataImporto }}</td>
+                <td>{{ fattura.importo }}</td>
+                <td>{{ fattura.numero }}</td>
+                <td>{{ fattura.statoFattura }}</td>
+                <td>
+                    <ng-container *ngFor="let indirizzo of fattura.cliente.indirizzi">
+                        <div class="address-container bg-light p-3 mb-3">
+                            <div class="address-label fw-bold text-primary">Tipo Sede: {{ indirizzo.tipoSede }}</div>
+                            <div class="address-details">
+                                <div>{{ indirizzo.via }}, {{ indirizzo.civico }}, {{ indirizzo.cap }}, {{ indirizzo.localita.nomeComune }}</div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

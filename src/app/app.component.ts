@@ -9,8 +9,10 @@ import { AuthService } from './auth/auth.service';
 })
 export class AppComponent {
   title = 'front-end';
-
-  // ngOnInit(): void {
-  //   this.authSrv.restore();
-  // }
+  constructor(private authSrv: AuthService) {
+  
+}
+  ngOnInit(): void {
+    this.authSrv.restore();
+  }
 }
