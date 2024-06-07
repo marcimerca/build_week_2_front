@@ -14,4 +14,8 @@ export class FatturaService {
   getFattura(){
     return this.http.get<FatturaResponse>(`${this.apiUrL}fatture`);
     }
+
+    // postFattura(fattura: Fattura): Observable<Fattura> {
+    //   return this.http.post<Fattura>(`${this.apiUrl}/fatture`, fattura);
+    // }
 }

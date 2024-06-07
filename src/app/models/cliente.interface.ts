@@ -2,6 +2,7 @@ export interface ClienteResponse {
   content: Cliente[];
 }
 export interface Cliente {
+  id: number;
   ragioneSociale: string;
   partitaIva: string;
   email: string;
@@ -14,6 +15,6 @@ export interface Cliente {
   nomeContatto: string;
   cognomeContatto: string;
   telefonoContatto: string;
-  logoAziendale: string;
+  logoAziendale?: string;
   tipoSocieta: string;
 }

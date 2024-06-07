@@ -15,6 +15,8 @@ import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ClienteComponent } from './components/cliente/cliente.component';
 import { FatturaComponent } from './components/fattura/fattura.component';
+import { AuthGuard } from './auth/auth.guard';
+import { ClienteDetailsComponent } from './components/cliente-details/cliente-details.component';
 
 
 
@@ -30,21 +32,29 @@ const routes: Route[] = [
   {
     path: 'login',
     component: LoginComponent,
+  
   },
   {
     path: 'clienti',
     component: ClienteComponent,
+    canActivate: [AuthGuard],
     
   },
   {
     path: 'fatture',
     component: FatturaComponent,
+    canActivate: [AuthGuard],
     
+  },
+   {
+    path: 'clienti/:id',
+    component: ClienteDetailsComponent,
+    canActivate: [AuthGuard],
   },
 
 ];
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NavBarComponent,RegisterComponent, LoginComponent, ClienteComponent, FatturaComponent],
+  declarations: [AppComponent, HomeComponent, NavBarComponent,RegisterComponent, LoginComponent, ClienteComponent, FatturaComponent, ClienteDetailsComponent],
   imports: [BrowserModule, RouterModule.forRoot(routes), FormsModule, HttpClientModule],
     providers: [
     {

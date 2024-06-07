@@ -15,9 +15,18 @@ export class ClienteService {
 
   getCliente(){
     return this.http.get<ClienteResponse>(`${this.apiUrL}clienti`);
-    }
+  }
+  
+   getSpecificCliente(id: number) {
+    return this.http.get<Cliente>(`${this.apiUrL}clienti/${id}`);
+   }
+  
   postCliente(cliente: Cliente){
-    return this.http.post(`${this.apiUrL}clienti`,cliente);
+    return this.http.post(`${this.apiUrL}clienti`,cliente,{ responseType: 'text' });
+  }
+
+  filterClienti() {
+    
   }
 
   

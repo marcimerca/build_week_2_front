@@ -1,22 +1,25 @@
 <div class="container mt-5">
     <h2 class="my-3 text-center">Clienti</h2>
-    <table class="table table-striped table-hover table-danger">
-        <thead>
+    <table class="table table-striped table-hover table-bordered table-danger">
+        <thead class="table-light">
             <tr>
-                <th scope="col" class="text-black">Data Ultimo Contatto</th>
-                <th scope="col" class="text-black">Email</th>
-                <th scope="col" class="text-black">Email Contatto</th>
-                <th scope="col" class="text-black">Fatturato Annuale</th>
-                <th scope="col" class="text-black">Nome Contatto</th>
-                <th scope="col" class="text-black">Partita IVA</th>
-                <th scope="col" class="text-black">PEC</th>
-                <th scope="col" class="text-black">Ragione Sociale</th>
-                <th scope="col" class="text-black">Telefono</th>
-                <th scope="col" class="text-black" *ngIf="user.ruolo == 'ADMIN'">Azioni</th>
+                <th scope="col">Data Ultimo Contatto</th>
+                <th scope="col">Email</th>
+                <th scope="col">Email Contatto</th>
+                <th scope="col">Fatturato Annuale</th>
+                <th scope="col">Nome Contatto</th>
+                <th scope="col">Partita IVA</th>
+                <th scope="col">PEC</th>
+                <th scope="col">Ragione Sociale</th>
+                <th scope="col">Telefono</th>
+                <th scope="col" *ngIf="user.ruolo == 'ADMIN'">Azioni</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let cliente of clienti">
+                <a [routerLink]="['/clienti', cliente.id]" class="btn btn-primary"
+            >Dettagli</a
+          >
                 <td>{{ cliente.dataUltimoContatto }}</td>
                 <td>{{ cliente.email }}</td>
                 <td>{{ cliente.emailContatto }}</td>
@@ -28,53 +31,96 @@
                 <td>{{ cliente.telefono }}</td>
                 <td *ngIf="user.ruolo == 'ADMIN'">
                     <!-- Action buttons for admin -->
-                    <!-- <button class="btn btn-sm btn-primary" (click)="editCliente(cliente)">Modifica</button>
+                    <!-- <button class="btn btn-sm btn-primary me-1" (click)="editCliente(cliente)">Modifica</button>
                     <button class="btn btn-sm btn-danger" (click)="deleteCliente(cliente)">Cancella</button> -->
                 </td>
             </tr>
         </tbody>
     </table>
-    <div *ngIf="user.ruolo == 'ADMIN'">
-        <button type="button"
-                class="btn btn-danger mt-4 create-client-btn"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal" (click)="addCliente()">Aggiungi Cliente</button>
+    <div class="text-center" *ngIf="user.ruolo == 'ADMIN'">
+        <button type="button" class="btn btn-danger mt-4" data-bs-toggle="modal" data-bs-target="#exampleModal" >Aggiungi Cliente</button>
     </div>
 </div>
 
+
 <!-- Modal for adding a new cliente -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content bg-danger text-white">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Aggiungi cliente</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Aggiungi Cliente</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form #newClienteForm="ngForm" (ngSubmit)="addCliente()">
-                    <div class="mb-3">
-                        <label for="ragioneSociale" class="form-label">Ragione Sociale</label>
-                        <input type="text" class="form-control" id="ragioneSociale" name="ragioneSociale" ngModel required>
+                <form #newClienteForm="ngForm" (ngSubmit)="addCliente(newClienteForm)">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="ragioneSociale" class="form-label">Ragione Sociale</label>
+                            <input type="text" class="form-control" id="ragioneSociale" name="ragioneSociale" ngModel required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="partitaIva" class="form-label">Partita IVA</label>
+                            <input type="text" class="form-control" id="partitaIva" name="partitaIva" ngModel required>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="partitaIva" class="form-label">Partita IVA</label>
-                        <input type="text" class="form-control" id="partitaIva" name="partitaIva" ngModel required>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" ngModel required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="pec" class="form-label">PEC</label>
+                            <input type="email" class="form-control" id="pec" name="pec" ngModel required>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" ngModel required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="dataUltimoContatto" class="form-label">Data Ultimo Contatto</label>
-                        <input type="date" class="form-control" id="dataUltimoContatto" name="dataUltimoContatto" ngModel required>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="telefono" class="form-label">Telefono</label>
+                            <input type="tel" class="form-control" id="telefono" name="telefono" ngModel required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="dataUltimoContatto" class="form-label">Data Ultimo Contatto</label>
+                            <input type="date" class="form-control" id="dataUltimoContatto" name="dataUltimoContatto" ngModel required>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="fatturatoAnnuale" class="form-label">Fatturato Annuale</label>
                         <input type="number" class="form-control" id="fatturatoAnnuale" name="fatturatoAnnuale" ngModel required>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="nomeContatto" class="form-label">Nome Contatto</label>
+                            <input type="text" class="form-control" id="nomeContatto" name="nomeContatto" ngModel required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="cognomeContatto" class="form-label">Cognome Contatto</label>
+                            <input type="text" class="form-control" id="cognomeContatto" name="cognomeContatto" ngModel required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="emailContatto" class="form-label">Email Contatto</label>
+                            <input type="email" class="form-control" id="emailContatto" name="emailContatto" ngModel required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="telefonoContatto" class="form-label">Telefono Contatto</label>
+                            <input type="tel" class="form-control" id="telefonoContatto" name="telefonoContatto" ngModel required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tipoSocieta" class="form-label">Tipo di Società</label>
+                        <select class="form-control" id="tipoSocieta" name="tipoSocieta" ngModel required>
+                            <option value="" disabled selected>Seleziona il tipo di società</option>
+                            <option value="PA">PA</option>
+                            <option value="SPA">SPA</option>
+                            <option value="SRL">SRL</option>
+                            <option value="SAS">SAS</option>
+                        </select>
+                    </div>
+                   
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-light">Aggiungi</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                        <button data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal2" type="submit" class="btn btn-danger">Aggiungi</button>
                     </div>
                 </form>
             </div>
@@ -82,73 +128,84 @@
     </div>
 </div>
 
-
-
-
-  <!-- <div class="container-fluid grad pt-5" >
-    <div class="row ">
-        <div class="container-fluid text-center m-5 col-2">
-            <ng-template #content let-c="close" let-d="dismiss">
-                <div class="modal-header ">
-                    <h4 class="modal-title " id="modal-basic-title">
-                        Aggiungi un nuovo cliente
-                    </h4>
-                    <button
-                        type="button"
-                        class="btn-close"
-                        aria-label="Close"
-                        (click)="d('Cross click')"
-                    ></button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-container sign-up-container">
-                        <form #newPost="ngForm" (ngSubmit)="addCliente()">
-                            <input
-                                type="text"
-                                placeholder="Insert Title..."
-                                id="title"
-                                name="title"
-                                required
-                                class="form-control "
-                                ngModel
-                            />
-                            <input
-                                type="text"
-                                placeholder="Write a post..."
-                                id="body"
-                                name="body"
-                                required
-                                class="form-control"
-                                ngModel
-                            />
-                            <input
-                                type="url"
-                                placeholder="Insert picture..."
-                                id="images"
-                                name="images"
-                                required
-                                class="form-control"
-                                ngModel
-                            />
-                            <button
-                                class="btn mt-2"
-                                type="submit"
-                                (click)="c('Save click')"
-                                [disabled]="newPost.invalid"
-                            >
-                                Publish!
-                            </button>
-                        </form>
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Aggiungi Indirizzi</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form #newIndirizziForm="ngForm" (ngSubmit)="addIndirizzi(newIndirizziForm)">
+                    <!-- Sede Legale -->
+                    <div class="mb-3">
+                        <h5>Sede Legale</h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="viaLegale" class="form-label">Via</label>
+                                <input type="text" class="form-control" id="viaLegale" name="viaLegale" ngModel required>
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label for="civicoLegale" class="form-label">Civico</label>
+                                <input type="text" class="form-control" id="civicoLegale" name="civicoLegale" ngModel required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="capLegale" class="form-label">CAP</label>
+                                <input type="text" class="form-control" id="capLegale" name="capLegale" ngModel required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="provinciaLegale" class="form-label">Provincia</label>
+                                <select class="form-control" id="provinciaLegale" name="provinciaLegale" ngModel required>
+                                    <!-- Opzioni province qui -->
+                                    <ng-container *ngIf="anagraficaOn">
+                                        <option *ngFor="let key of anagrafica" value="{{key.id}}">{{key.nomeComune}} {{key.provincia.nomeProvincia}} {{key.provincia.regione}} {{key.provincia.siglaProvincia}}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                </div>
-    
-            </ng-template>
-            <button
-                class="btn btn-lg over btn-outline-light"
-                (click)="open(content)"
-            >
-                Create New Post
-            </button>
+                    <!-- Sede Operativa -->
+                    <div class="mb-3">
+                        <h5>Sede Operativa</h5>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="viaOperativa" class="form-label">Via</label>
+                                <input type="text" class="form-control" id="viaOperativa" name="viaOperativa" ngModel required>
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label for="civicoOperativa" class="form-label">Civico</label>
+                                <input type="text" class="form-control" id="civicoOperativa" name="civicoOperativa" ngModel required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="capOperativa" class="form-label">CAP</label>
+                                <input type="text" class="form-control" id="capOperativa" name="capOperativa" ngModel required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="provinciaOperativa" class="form-label">Provincia</label>
+                                <select class="form-control" id="provinciaOperativa" name="provinciaOperativa" ngModel required>
+                                    <!-- Opzioni province qui -->
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="comuneOperativa" class="form-label">Comune</label>
+                                <select class="form-control" id="comuneOperativa" name="comuneOperativa" ngModel required>
+                                    <!-- Opzioni comuni qui -->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                        <button data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal2" type="submit" class="btn btn-danger">Aggiungi indirizzi</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>  -->
+</div>
+ 

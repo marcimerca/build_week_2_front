@@ -6,7 +6,7 @@ import { BehaviorSubject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { AuthData } from '../models/auth-data.interface';
 import { Router } from '@angular/router';
-
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 @Injectable({
@@ -17,6 +17,8 @@ export class AuthService {
 
   private authSub = new BehaviorSubject<AuthData | null>(null);
   user$ = this.authSub.asObservable();
+  jwtHelper = new JwtHelperService();
+  timeOut: any;
 
   constructor(
     private http: HttpClient,
@@ -38,34 +40,26 @@ export class AuthService {
       tap((data) => {
         this.authSub.next(data);
         localStorage.setItem('user', JSON.stringify(data));
+        this.autoLogout(data);
       }), 
       catchError(this.errors)
     );
   }
 
-/*   login(data: {email: string, password: string}) {
-    console.log(data)
-    return this.http.post<AuthData>(`${this.apiURL}auth/login`, data ).pipe(
-   // return this.http.post<AuthData>(`${environment.apiUrl}auth/login`, data).pipe(
-      tap(async (user) => {
-        this.authSub.next(user);
-        localStorage.setItem('user', JSON.stringify(user));
-       // this.autoLogout(user);
-      })
-    )
-  } */
 
 
-
-
-
-
-
-  // logout() {
-  //   this.authSub.next(null);
-  //   localStorage.removeItem('user');
-  //   this.router.navigate(['/login']);
-  // }
+   logout() {
+     this.authSub.next(null);
+     localStorage.removeItem('user');
+     this.router.navigate(['/login']);
+   }
+   autoLogout(user: AuthData) {
+    const dateExpiration = this.jwtHelper.getTokenExpirationDate(user.accessToken) as Date;
+    const millisecondsExp = dateExpiration.getTime() - new Date().getTime();
+    this.timeOut = setTimeout(() => {
+        this.logout();
+    }, millisecondsExp);
+}
 
   restore() {
     const userJson = localStorage.getItem('user');

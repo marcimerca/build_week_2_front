@@ -47,4 +47,27 @@ export class FatturaComponent {
   // }
 
 
+
+  
+  // ------------
+  // addFattura(form: NgForm) {
+  //   if (form.valid) {
+  //     this.fatturaSrv.postFattura(form.value).subscribe(() => {
+  //       this.fetchFatture();
+  //       form.reset();
+  //       const modalElement = document.getElementById('addFatturaModal');
+  //       if (modalElement) {
+  //         const modalInstance = bootstrap.Modal.getInstance(modalElement);
+  //         modalInstance?.hide();
+  //       }
+  //     });
+  //   }
+  // }
+
+  // fetchFatture() {
+  //   this.fatturaSrv.getFattura().subscribe((data: FatturaResponse) => {
+  //     this.fatture = data.content;
+  //   });
+  // }
+
 }
