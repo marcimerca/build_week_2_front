@@ -136,28 +136,28 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form #newIndirizziForm="ngForm" (ngSubmit)="addIndirizzi(newIndirizziForm)">
+                <form #newIndirizziForm="ngForm" (ngSubmit)="addIndirizzi(newIndirizziForm,'OPERATIVA')">
                     <!-- Sede Legale -->
                     <div class="mb-3">
                         <h5>Sede Legale</h5>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="viaLegale" class="form-label">Via</label>
-                                <input type="text" class="form-control" id="viaLegale" name="viaLegale" ngModel required>
+                                <input type="text" class="form-control" id="viaLegale" name="via" ngModel required>
                             </div>
                             <div class="col-md-2 mb-3">
                                 <label for="civicoLegale" class="form-label">Civico</label>
-                                <input type="text" class="form-control" id="civicoLegale" name="civicoLegale" ngModel required>
+                                <input type="text" class="form-control" id="civicoLegale" name="civico" ngModel required>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="capLegale" class="form-label">CAP</label>
-                                <input type="text" class="form-control" id="capLegale" name="capLegale" ngModel required>
+                                <input type="text" class="form-control" id="capLegale" name="cap" ngModel required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="provinciaLegale" class="form-label">Provincia</label>
-                                <select class="form-control" id="provinciaLegale" name="provinciaLegale" [(ngModel)]="selectedProvince" (change)="selectProvince()" required>
+                                <select class="form-control" id="provinciaLegale" name="provincia" [(ngModel)]="selectedProvince" (change)="selectProvince()" required>
                                     <!-- Opzioni province qui -->
                                     <ng-container *ngIf="anagraficaOn">
                                         <option *ngFor="let provincia of provinc" [value]="provincia.nomeProvincia">{{provincia.nomeProvincia}}</option>
@@ -169,7 +169,7 @@
                         <div class="row" *ngIf="selectedProvince">
                             <div class="col-md-6 mb-3">
                                 <label for="comuneLegale" class="form-label">Comune</label>
-                                <select class="form-control" id="comuneLegale" name="comuneLegale" [(ngModel)]="selectedComune" required>
+                                <select class="form-control" id="comuneLegale" name="idAnagrafe" [(ngModel)]="selectedComune" required>
                                     <!-- Opzioni comuni qui -->
                                     <ng-container *ngIf="comuni">
                                         <option *ngFor="let comune of comuni" [value]="comune.provincia.id">{{comune.nomeComune}}</option>
@@ -178,42 +178,68 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Sede Operativa -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                        <button data-bs-dismiss="modal" data-bs-toggle="modal"  data-bs-target="#exampleModal3" type="submit" class="btn btn-danger">Aggiungi indirizzo sede legale</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Aggiungi Indirizzo SedeLEGALE</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form #newIndirizziForm="ngForm" (ngSubmit)="addIndirizzi(newIndirizziForm,'LEGALE')">
+                    <!-- SedeLEGALE -->
                     <div class="mb-3">
-                        <h5>Sede Operativa</h5>
+                        <h5>SedeLEGALE</h5>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="viaOperativa" class="form-label">Via</label>
-                                <input type="text" class="form-control" id="viaOperativa" name="viaOperativa" ngModel required>
+                                <label for="viaLegale" class="form-label">Via</label>
+                                <input type="text" class="form-control" id="viaLegale" name="via" ngModel required>
                             </div>
                             <div class="col-md-2 mb-3">
-                                <label for="civicoOperativa" class="form-label">Civico</label>
-                                <input type="text" class="form-control" id="civicoOperativa" name="civicoOperativa" ngModel required>
+                                <label for="civicoLegale" class="form-label">Civico</label>
+                                <input type="text" class="form-control" id="civicoLegale" name="civico" ngModel required>
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label for="capOperativa" class="form-label">CAP</label>
-                                <input type="text" class="form-control" id="capOperativa" name="capOperativa" ngModel required>
+                                <label for="capLegale" class="form-label">CAP</label>
+                                <input type="text" class="form-control" id="capLegale" name="cap" ngModel required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="provinciaOperativa" class="form-label">Provincia</label>
-                                <select class="form-control" id="provinciaOperativa" name="provinciaOperativa" ngModel required>
+                                <label for="provinciaLegale" class="form-label">Provincia</label>
+                                <select class="form-control" id="provinciaLegale" name="provincia" [(ngModel)]="selectedProvince" (change)="selectProvince()" required>
                                     <!-- Opzioni province qui -->
+                                    <ng-container *ngIf="anagraficaOn">
+                                        <option *ngFor="let provincia of provinc" [value]="provincia.nomeProvincia">{{provincia.nomeProvincia}}</option>
+                                    </ng-container>
                                 </select>
                             </div>
+                        </div>
+                        
+                        <div class="row" *ngIf="selectedProvince">
                             <div class="col-md-6 mb-3">
-                                <label for="comuneOperativa" class="form-label">Comune</label>
-                                <select class="form-control" id="comuneOperativa" name="comuneOperativa" ngModel required>
+                                <label for="comuneLegale" class="form-label">Comune</label>
+                                <select class="form-control" id="comuneLegale" name="idAnagrafe" [(ngModel)]="selectedComune" required>
                                     <!-- Opzioni comuni qui -->
+                                    <ng-container *ngIf="comuni">
+                                        <option *ngFor="let comune of comuni" [value]="comune.provincia.id">{{comune.nomeComune}}</option>
+                                    </ng-container>
                                 </select>
                             </div>
                         </div>
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                        <button data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal2" type="submit" class="btn btn-danger">Aggiungi indirizzi</button>
+                        <button data-bs-dismiss="modal" data-bs-toggle="modal"  data-bs-target="#exampleModal3" type="submit" class="btn btn-danger">Aggiungi indirizzo sede legale</button>
                     </div>
                 </form>
             </div>

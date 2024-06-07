@@ -5,6 +5,8 @@ import { AnagrafeService } from './../../service/anagrafe.service';
 import { AuthData } from 'src/app/models/auth-data.interface';
 import { Cliente, ClienteResponse } from './../../models/cliente.interface';
 import { Comune, Provincia } from 'src/app/models/anagrafica.interface';
+import { IndirizziService } from 'src/app/service/indirizzi.service';
+import { Indirizzo } from 'src/app/models/fattura.interface';
 
 @Component({
   selector: 'app-cliente',
@@ -21,9 +23,9 @@ export class ClienteComponent implements OnInit {
   clienti!: Cliente[];
   selectedProvince: string | null = null; 
   comuni: Comune[] = [];
-selectedComune: any;
+  selectedComune: any;
 
-  constructor(private clienteSrv: ClienteService, private anagrafeSrv: AnagrafeService) {}
+  constructor(private clienteSrv: ClienteService, private anagrafeSrv: AnagrafeService,private indirizzoSrv:IndirizziService) {}
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -97,7 +99,20 @@ selectedComune: any;
     
   }
 
-  addIndirizzi(form: NgForm) {
-    // Logica per aggiungere indirizzi
+  addIndirizzi(form: NgForm, sede:string) {
+    
+    const datiDaInviare = {
+      ...form.value,
+      tipoSede: sede,
+      idCliente: this.clienti[this.clienti.length - 1].id,
+    };
+    delete datiDaInviare.provincia;
+    console.log(datiDaInviare);
+    this.indirizzoSrv.postIndirizzo(datiDaInviare).subscribe(() => {
+      console.log('Indirizzo aggiunto');
+    }
+    ); 
+
+    
   }
 }

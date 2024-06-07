@@ -1,16 +1,74 @@
-<div class="container mt-4 text-center">
-  <h1 class="text-center p-2">{{ cliente.ragioneSociale }}</h1>
-  <div class="card h-100 text-center p-5 shadow">
-    <h3>{{ cliente.email }}</h3>
-    <h3>{{ cliente.partitaIva }}</h3>
-    <h3>{{ cliente.pec }}</h3>
-    <h3>{{ cliente.telefono }}</h3>
-    <h3>{{ cliente.email }}</h3>
-    <h3>{{ cliente.emailContatto }}</h3>
-    <h3>{{ cliente.nomeContatto }}</h3>
-    <h3>{{ cliente.cognomeContatto }}</h3>
-    <h3>{{ cliente.fatturatoAnnuale }}</h3>
-
-    <h3>{{ cliente.logoAziendale }}</h3>
+<div class="container mt-4">
+    <div class="card client-details h-100 text-center p-5 shadow">
+      <h1 class="display-4 mb-4">{{ cliente.ragioneSociale }}</h1>
+      <img src="{{ cliente.logoAziendale }}" alt="Logo Aziendale" class="img-fluid rounded-circle mb-4" style="max-height: 100px; max-width: 100px;">
+      <div class="row">
+          <div class="col-md-6 mb-3">
+              <h5 class="font-weight-bold">Dettagli Cliente</h5>
+              <table class="table">
+                  <tbody>
+                      <tr>
+                          <td>Email</td>
+                          <td>{{ cliente.email }}</td>
+                      </tr>
+                      <tr>
+                          <td>Partita IVA</td>
+                          <td>{{ cliente.partitaIva }}</td>
+                      </tr>
+                      <tr>
+                          <td>PEC</td>
+                          <td>{{ cliente.pec }}</td>
+                      </tr>
+                      <tr>
+                          <td>Telefono</td>
+                          <td>{{ cliente.telefono }}</td>
+                      </tr>
+                      <tr>
+                          <td>Email Contatto</td>
+                          <td>{{ cliente.emailContatto }}</td>
+                      </tr>
+                      <tr>
+                          <td>Nome Contatto</td>
+                          <td>{{ cliente.nomeContatto }}</td>
+                      </tr>
+                      <tr>
+                          <td>Cognome Contatto</td>
+                          <td>{{ cliente.cognomeContatto }}</td>
+                      </tr>
+                      <tr>
+                          <td>Fatturato Annuale</td>
+                          <td>{{ cliente.fatturatoAnnuale }}</td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+    </div>
+  </div> 
+  
+  <div *ngFor="let fattura of fatture">
+    <div class="card">
+      <div class="card-header bg-secondary text-white">
+        Fattura Numero: {{ fattura.numero }}
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td>Data Importo</td>
+              <td>{{ fattura.dataImporto }}</td>
+            </tr>
+            <tr>
+              <td>Importo</td>
+              <td>{{ fattura.importo }}</td>
+            </tr>
+            <tr>
+              <td>Stato Fattura</td>
+              <td>{{ fattura.statoFattura }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-</div>
+  
